@@ -34,7 +34,7 @@ const products: CardProps[] = [
 
 export default function Home() {
   return (
-    <main className="container mx-auto px-4 py-8">
+    <main className="max-w-7xl px-4 sm:px-6 lg:px-8">
       <section aria-labelledby="latest-shoes">
         <h2 id="latest-shoes" className="text-heading-2 mb-4">
           Latest Shoes
