@@ -1,30 +1,32 @@
-"use client";
+'use client';
 
 import React, { useState } from "react";
 import SocialProviders from "./SocialProviders";
 import Link from "next/link";
+import { useRouter } from 'next/navigation';
 
 interface AuthFormProps {
   mode: "sign-in" | "sign-up";
+  onSubmit: (formData: FormData) => Promise<{ ok: boolean; userId?: string } | void>;
 }
 
-export default function AuthForm({ mode }: AuthFormProps) {
-  const [form, setForm] = useState({
-    email: "",
-    password: "",
-    name: "",
-  });
-
+export default function AuthForm({ mode, onSubmit }: AuthFormProps) {
   const [showPassword, setShowPassword] = useState(false);
 
-  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-    const { id, value } = e.target;
-    setForm((prev) => ({ ...prev, [id]: value }));
-  }
+  const route = useRouter();
 
-  function handleSubmit(e: React.FormEvent) {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(mode, form);
+    const formData = new FormData(e.currentTarget);
+
+    try {
+      const result = await onSubmit(formData);
+      if (result?.ok) {
+        route.push("/");
+      }
+    } catch (error) {
+      console.error("Error during form submission:", error);
+    }
   }
 
   return (
@@ -62,10 +64,9 @@ export default function AuthForm({ mode }: AuthFormProps) {
             </label>
             <input
               id="name"
-              value={form.name}
-              onChange={handleChange}
+              name="name"
               className="w-full rounded-md border border-light-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[--color-dark-500]"
-              placeholder="Jane Doe"
+              placeholder="Enter your full name"
               required
             />
           </div>
@@ -78,8 +79,7 @@ export default function AuthForm({ mode }: AuthFormProps) {
           <input
             id="email"
             type="email"
-            value={form.email}
-            onChange={handleChange}
+            name="email"
             className="w-full rounded-md border border-light-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[--color-dark-500]"
             placeholder="you@example.com"
             required
@@ -94,8 +94,7 @@ export default function AuthForm({ mode }: AuthFormProps) {
             <input
               id="password"
               type={showPassword ? "text" : "password"}
-              value={form.password}
-              onChange={handleChange}
+              name="password"
               className="w-full rounded-md border border-light-300 px-3 py-2 pr-10 text-sm focus:outline-none focus:ring-2 focus:ring-[--color-dark-500]"
               placeholder="••••••••"
               required

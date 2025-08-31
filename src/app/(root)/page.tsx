@@ -1,4 +1,5 @@
-// import React from "react";
+import React from "react";
+import { getCurrentUser } from "@/lib/auth/actions";
 import Card, { CardProps } from "../../components/Card";
 
 const products: CardProps[] = [
@@ -30,7 +31,9 @@ const products: CardProps[] = [
   },
 ];
 
-export default function Home() {
+const Home = async () => {
+  const user = await getCurrentUser();
+  console.log("Current User:", user);
   return (
     <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <section aria-labelledby="latest-shoes">
@@ -46,4 +49,6 @@ export default function Home() {
       </section>
     </main>
   );
-}
+};
+
+export default Home;
