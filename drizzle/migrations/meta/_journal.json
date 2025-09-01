@@ -15,6 +15,20 @@
       "when": 1756608833523,
       "tag": "0001_ancient_piledriver",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1756715198278,
+      "tag": "0002_flippant_wasp",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1756719314059,
+      "tag": "0003_panoramic_blue_shield",
+      "breakpoints": true
     }
   ]
 }
