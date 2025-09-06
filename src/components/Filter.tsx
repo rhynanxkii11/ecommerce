@@ -77,7 +77,7 @@ const Filters = () => {
       </div>
 
       {/* Sidebar for md+ */}
-      <aside className="hidden md:block w-64 pr-6">
+      <aside className="sticky top-20 hidden h-fit min-w-60 p-4 md:block">
         <div className="sticky top-20 space-y-6">
           <div className="flex items-center justify-between">
             <h3 className="text-lg font-semibold">Filters</h3>
